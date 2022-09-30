@@ -74,7 +74,10 @@ class MyStack extends TerraformStack {
       port: 9090,
       logConfiguration: serviceSideCarLogs.configuration,
       tls: true,
-      retryJoin: tfcOutputs.getList('consul_server_ips')
+      retryJoin: tfcOutputs.getList('consul_server_ips'),
+      tags: {
+        "team": "dev"
+      }
     })
 
     new ImagesService(
