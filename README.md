@@ -2,12 +2,12 @@
 
 This repository demonstrates setting up an Amazon ECS microservices architecture with HashiCorp's Cloud Development Kit for Terraform (CDKTF) and Consul.   It also goes along with two other repositories:
 
-1. [Terraform with Amazon ECS and Consul]()
+1. [Terraform with Amazon ECS and Consul](https://github.com/jcolemorrison/terraform-ecs-consul)
   - deploys the core infrastructure that supports this project. It's referenced as teh "parent workspace" or "parent" project throughout this code.
   - you must deploy this FIRST before using this project...or else....
   - ...nothing will happen.
-2. [Sentinel Policies for Terraform with Amazon ECS and Consul]()
-  - creates [Sentinel Policies]() to guard both projects in [Terraform Cloud]()
+2. [Sentinel Policies for Terraform with Amazon ECS and Consul](https://github.com/jcolemorrison/sentinel-ecs-consul)
+  - creates [HashiCorp Sentinel Policies](https://www.hashicorp.com/sentinel) to guard both projects in [Terraform Cloud](https://cloud.hashicorp.com/products/terraform)
 
 ## The Architecture
 
@@ -60,7 +60,7 @@ Terraform and CDKT for Terraform are used to provision the infrastructure.  Terr
 6. Log in to [Terraform Cloud from the CLI](https://learn.hashicorp.com/tutorials/terraform/cloud-login?in=terraform/cloud-get-started)
   - this will set the credentials locally for the CDKTF to work with it
 
-7. Change the TFC Variables in `main.ts` to reflect the names of your Organization and Workspaces:
+7. Change the TFC Variables in [`main.ts`](https://github.com/jcolemorrison/cdktf-ecs-consul/blob/main/main.ts#L8-L15) to reflect the names of your Organization and Workspaces:
   ```ts
   // Change these to match your Terraform Cloud Org and Workspaces
   const tfc_organization = "jcolemorrison"
@@ -74,7 +74,7 @@ Terraform and CDKT for Terraform are used to provision the infrastructure.  Terr
 
 ## Deploying the Project
 
-**First and foremost**, you MUST deploy the associated [Terraform with Amazon ECS and Consul]() Project before deploying this one as this project depends on it.  Have you done that?  Good, now you can deploy this project:
+**First and foremost**, you MUST deploy the associated [Terraform with Amazon ECS and Consul](https://github.com/jcolemorrison/terraform-ecs-consul) Project before deploying this one as this project depends on it.  Have you done that?  Good, now you can deploy this project:
 
 1. [Create a Workspace in Terraform Cloud](https://learn.hashicorp.com/tutorials/terraform/cloud-workspace-create?in=terraform/cloud-get-started) for this project named the same thing as your `tfc_workspace` in `main.ts`.
 
@@ -82,4 +82,4 @@ Terraform and CDKT for Terraform are used to provision the infrastructure.  Terr
 
 3. [Trigger a Run to Plan and Apply Infrastructure](https://www.terraform.io/cloud-docs/run/manage).
 
-4. Connect to the `client_endpoint` output in your [Terraform with Amazon ECS and Consul]() Project deployment to see if the service is live.
+4. Connect to the `client_endpoint` output in your [Terraform with Amazon ECS and Consul](https://github.com/jcolemorrison/terraform-ecs-consul) Project deployment to see if the service is live.
