@@ -1,11 +1,11 @@
 {
   "version": "0.12.2",
   "stacks": {
-    "cdktf-on-aws": {
-      "name": "cdktf-on-aws",
-      "constructPath": "cdktf-on-aws",
-      "workingDirectory": "stacks/cdktf-on-aws",
-      "synthesizedStackPath": "stacks/cdktf-on-aws/cdk.tf.json",
+    "cdktf-ecs-consul": {
+      "name": "cdktf-ecs-consul",
+      "constructPath": "cdktf-ecs-consul",
+      "workingDirectory": "stacks/cdktf-ecs-consul",
+      "synthesizedStackPath": "stacks/cdktf-ecs-consul/cdk.tf.json",
       "annotations": [],
       "dependencies": []
     }

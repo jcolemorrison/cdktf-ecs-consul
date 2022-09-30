@@ -83,3 +83,9 @@ Terraform and CDKT for Terraform are used to provision the infrastructure.  Terr
 3. [Trigger a Run to Plan and Apply Infrastructure](https://www.terraform.io/cloud-docs/run/manage).
 
 4. Connect to the `client_endpoint` output in your [Terraform with Amazon ECS and Consul](https://github.com/jcolemorrison/terraform-ecs-consul) Project deployment to see if the service is live.
+
+## For Local Development
+
+1. Run `npm i` to install all dependencies.
+
+2. Run `cdktf get` to grab all modules.

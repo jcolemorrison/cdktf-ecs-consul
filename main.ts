@@ -9,7 +9,7 @@ import { ImagesService } from "./ecs-services"
 const tfc_organization = "jcolemorrison"
 
 // parent one with main Terraform configuration
-const tfc_parent_workspace = "tf-ecs-consul"
+const tfc_parent_workspace = "terraform-ecs-consul"
 
 // this workspace
 const tfc_workspace = "cdktf-ecs-consul"

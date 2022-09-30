@@ -2,7 +2,7 @@
   "//": {
     "metadata": {
       "backend": "cloud",
-      "stackName": "cdktf-on-aws",
+      "stackName": "cdktf-ecs-consul",
       "version": "0.12.2"
     },
     "outputs": {
@@ -15,18 +15,18 @@
         "config": {
           "organization": "jcolemorrison",
           "workspaces": {
-            "name": "tf-on-aws"
+            "name": "terraform-ecs-consul"
           }
         }
       }
     }
   },
   "module": {
-    "service": {
+    "images_module": {
       "//": {
         "metadata": {
-          "path": "cdktf-on-aws/service",
-          "uniqueId": "service"
+          "path": "cdktf-ecs-consul/images_module",
+          "uniqueId": "images_module"
         }
       },
       "acl_secret_name_prefix": "${data.terraform_remote_state.tfc_outputs.outputs.project_tag}",
@@ -90,7 +90,7 @@
       "retry_join": "${data.terraform_remote_state.tfc_outputs.outputs.consul_server_ips}",
       "source": "hashicorp/consul-ecs/aws//modules/mesh-task",
       "tls": true,
-      "version": "0.4.1"
+      "version": "0.4.2"
     }
   },
   "provider": {
@@ -105,7 +105,7 @@
       "service_logs_30DB8EF6": {
         "//": {
           "metadata": {
-            "path": "cdktf-on-aws/service_logs/service_logs",
+            "path": "cdktf-ecs-consul/service_logs/service_logs",
             "uniqueId": "service_logs_30DB8EF6"
           }
         },
@@ -114,7 +114,7 @@
       "service_sidecar_logs_F0723DAB": {
         "//": {
           "metadata": {
-            "path": "cdktf-on-aws/service_sidecar_logs/service_sidecar_logs",
+            "path": "cdktf-ecs-consul/service_sidecar_logs/service_sidecar_logs",
             "uniqueId": "service_sidecar_logs_F0723DAB"
           }
         },
@@ -125,7 +125,7 @@
       "images_serivce_71209E8F": {
         "//": {
           "metadata": {
-            "path": "cdktf-on-aws/images_serivce/images_serivce",
+            "path": "cdktf-ecs-consul/images_serivce/images_serivce",
             "uniqueId": "images_serivce_71209E8F"
           }
         },
@@ -142,7 +142,7 @@
           "subnets": "${data.terraform_remote_state.tfc_outputs.outputs.private_subnet_ids}"
         },
         "propagate_tags": "TASK_DEFINITION",
-        "task_definition": "${module.service.task_definition_arn}"
+        "task_definition": "${module.images_module.task_definition_arn}"
       }
     }
   },
@@ -151,7 +151,7 @@
       "hostname": "app.terraform.io",
       "organization": "jcolemorrison",
       "workspaces": {
-        "name": "cdktf-on-aws"
+        "name": "cdktf-ecs-consul"
       }
     },
     "required_providers": {
