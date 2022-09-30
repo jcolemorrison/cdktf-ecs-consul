@@ -1,0 +1,164 @@
+{
+  "//": {
+    "metadata": {
+      "backend": "cloud",
+      "stackName": "cdktf-on-aws",
+      "version": "0.12.2"
+    },
+    "outputs": {
+    }
+  },
+  "data": {
+    "terraform_remote_state": {
+      "tfc_outputs": {
+        "backend": "remote",
+        "config": {
+          "organization": "jcolemorrison",
+          "workspaces": {
+            "name": "tf-on-aws"
+          }
+        }
+      }
+    }
+  },
+  "module": {
+    "service": {
+      "//": {
+        "metadata": {
+          "path": "cdktf-on-aws/service",
+          "uniqueId": "service"
+        }
+      },
+      "acl_secret_name_prefix": "${data.terraform_remote_state.tfc_outputs.outputs.project_tag}",
+      "acls": true,
+      "consul_client_token_secret_arn": "${data.terraform_remote_state.tfc_outputs.outputs.consul_client_token_secret_arn}",
+      "consul_datacenter": "${data.terraform_remote_state.tfc_outputs.outputs.consul_dc_name}",
+      "consul_server_ca_cert_arn": "${data.terraform_remote_state.tfc_outputs.outputs.consul_root_ca_cert_arn}",
+      "container_definitions": [
+        {
+          "cpu": 0,
+          "environment": [
+            {
+              "name": "NAME",
+              "value": "Images"
+            },
+            {
+              "name": "MESSAGE",
+              "value": "Hello from the CDKTF Image Service"
+            },
+            {
+              "name": "UPSTREAM_URIS",
+              "value": "http://${data.terraform_remote_state.tfc_outputs.outputs.database_private_ip}:27017"
+            }
+          ],
+          "essential": true,
+          "image": "nicholasjackson/fake-service:v0.23.1",
+          "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+              "awslogs-group": "${aws_cloudwatch_log_group.service_logs_30DB8EF6.name}",
+              "awslogs-region": "${data.terraform_remote_state.tfc_outputs.outputs.project_region}",
+              "awslogs-stream-prefix": "${data.terraform_remote_state.tfc_outputs.outputs.project_tag}-images-"
+            }
+          },
+          "name": "images",
+          "portMappings": [
+            {
+              "containerPort": 9090,
+              "hostPort": 9090,
+              "protocol": "tcp"
+            }
+          ]
+        }
+      ],
+      "cpu": 256,
+      "family": "${data.terraform_remote_state.tfc_outputs.outputs.project_tag}-images",
+      "gossip_key_secret_arn": "${data.terraform_remote_state.tfc_outputs.outputs.consul_gossip_key_arn}",
+      "log_configuration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "${aws_cloudwatch_log_group.service_sidecar_logs_F0723DAB.name}",
+          "awslogs-region": "${data.terraform_remote_state.tfc_outputs.outputs.project_region}",
+          "awslogs-stream-prefix": "${data.terraform_remote_state.tfc_outputs.outputs.project_tag}-images-sidcars-"
+        }
+      },
+      "memory": 512,
+      "port": 9090,
+      "requires_compatibilities": [
+        "FARGATE"
+      ],
+      "retry_join": "${data.terraform_remote_state.tfc_outputs.outputs.consul_server_ips}",
+      "source": "hashicorp/consul-ecs/aws//modules/mesh-task",
+      "tls": true,
+      "version": "0.4.1"
+    }
+  },
+  "provider": {
+    "aws": [
+      {
+        "region": "us-east-1"
+      }
+    ]
+  },
+  "resource": {
+    "aws_cloudwatch_log_group": {
+      "service_logs_30DB8EF6": {
+        "//": {
+          "metadata": {
+            "path": "cdktf-on-aws/service_logs/service_logs",
+            "uniqueId": "service_logs_30DB8EF6"
+          }
+        },
+        "name_prefix": "${data.terraform_remote_state.tfc_outputs.outputs.project_tag}-images-"
+      },
+      "service_sidecar_logs_F0723DAB": {
+        "//": {
+          "metadata": {
+            "path": "cdktf-on-aws/service_sidecar_logs/service_sidecar_logs",
+            "uniqueId": "service_sidecar_logs_F0723DAB"
+          }
+        },
+        "name_prefix": "${data.terraform_remote_state.tfc_outputs.outputs.project_tag}-images-sidcars-"
+      }
+    },
+    "aws_ecs_service": {
+      "images_serivce_71209E8F": {
+        "//": {
+          "metadata": {
+            "path": "cdktf-on-aws/images_serivce/images_serivce",
+            "uniqueId": "images_serivce_71209E8F"
+          }
+        },
+        "cluster": "${data.terraform_remote_state.tfc_outputs.outputs.cluster_arn}",
+        "desired_count": 1,
+        "launch_type": "FARGATE",
+        "name": "${data.terraform_remote_state.tfc_outputs.outputs.project_tag}-images",
+        "network_configuration": {
+          "assign_public_ip": false,
+          "security_groups": [
+            "${data.terraform_remote_state.tfc_outputs.outputs.client_security_group_id}",
+            "${data.terraform_remote_state.tfc_outputs.outputs.upstream_security_group_id}"
+          ],
+          "subnets": "${data.terraform_remote_state.tfc_outputs.outputs.private_subnet_ids}"
+        },
+        "propagate_tags": "TASK_DEFINITION",
+        "task_definition": "${module.service.task_definition_arn}"
+      }
+    }
+  },
+  "terraform": {
+    "cloud": {
+      "hostname": "app.terraform.io",
+      "organization": "jcolemorrison",
+      "workspaces": {
+        "name": "cdktf-on-aws"
+      }
+    },
+    "required_providers": {
+      "aws": {
+        "source": "aws",
+        "version": "4.32.0"
+      }
+    }
+  }
+}

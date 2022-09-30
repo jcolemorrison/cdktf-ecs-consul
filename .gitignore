@@ -1,0 +1,19 @@
+*.d.ts
+*.js
+node_modules
+# cdktf.out
+cdktf.out/.terraform
+cdktf.out/.terraform.lock.hcl
+cdktf.out/terraform.tfstate.backup
+cdktf.out/terraform.tfstate
+cdktf.log
+*terraform.*.tfstate*
+.gen
+.terraform
+tsconfig.tsbuildinfo
+!jest.config.js
+!setup.js
+.DS_Store
+notes.md
+consul_token.txt
+tfc.auto.tfvars

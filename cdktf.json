@@ -1,0 +1,18 @@
+{
+  "language": "typescript",
+  "app": "npx ts-node main.ts",
+  "projectId": "55bee107-3eef-49c1-b30b-076cfdfe56f0",
+  "sendCrashReports": "true",
+  "terraformProviders": [],
+  "terraformModules": [
+    {
+      "name": "consul-ecs-mesh-task",
+      "source": "hashicorp/consul-ecs/aws//modules/mesh-task",
+      "version": "0.4.2"
+    }
+  ],
+  "context": {
+    "excludeStackIdFromLogicalIds": "true",
+    "allowSepCharsInLogicalIds": "true"
+  }
+}
