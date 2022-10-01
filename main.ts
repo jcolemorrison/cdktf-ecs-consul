@@ -1,5 +1,5 @@
 import { Construct } from "constructs"
-import { App, TerraformStack, CloudBackend, NamedCloudWorkspace, DataTerraformRemoteState } from "cdktf"
+import { App, TerraformStack, DataTerraformRemoteState } from "cdktf"
 import { AwsProvider } from "@cdktf/provider-aws"
 import { ConsulEcsMeshTask } from "./.gen/modules/consul-ecs-mesh-task"
 import { Logs } from "./logs"
@@ -94,9 +94,9 @@ class MyStack extends TerraformStack {
 
 const app = new App()
 const stack = new MyStack(app, tfc_workspace)
-new CloudBackend(stack, {
-  hostname: "app.terraform.io",
-  organization: tfc_organization,
-  workspaces: new NamedCloudWorkspace(tfc_workspace)
-})
+// new CloudBackend(stack, {
+//   hostname: "app.terraform.io",
+//   organization: tfc_organization,
+//   workspaces: new NamedCloudWorkspace(tfc_workspace)
+// })
 app.synth()
