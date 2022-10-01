@@ -74,10 +74,7 @@ class MyStack extends TerraformStack {
       port: 9090,
       logConfiguration: serviceSideCarLogs.configuration,
       tls: true,
-      retryJoin: tfcOutputs.getList('consul_server_ips'),
-      tags: {
-        "team": "dev"
-      }
+      retryJoin: tfcOutputs.getList('consul_server_ips')
     })
 
     new ImagesService(
@@ -97,9 +94,4 @@ class MyStack extends TerraformStack {
 
 const app = new App()
 new MyStack(app, tfc_workspace)
-// new CloudBackend(stack, {
-//   hostname: "app.terraform.io",
-//   organization: tfc_organization,
-//   workspaces: new NamedCloudWorkspace(tfc_workspace)
-// })
 app.synth()
