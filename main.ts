@@ -96,7 +96,7 @@ class MyStack extends TerraformStack {
 }
 
 const app = new App()
-const stack = new MyStack(app, tfc_workspace)
+new MyStack(app, tfc_workspace)
 // new CloudBackend(stack, {
 //   hostname: "app.terraform.io",
 //   organization: tfc_organization,

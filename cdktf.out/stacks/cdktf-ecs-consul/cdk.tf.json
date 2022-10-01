@@ -1,7 +1,7 @@
 {
   "//": {
     "metadata": {
-      "backend": "cloud",
+      "backend": "local",
       "stackName": "cdktf-ecs-consul",
       "version": "0.12.2"
     },
@@ -89,6 +89,9 @@
       ],
       "retry_join": "${data.terraform_remote_state.tfc_outputs.outputs.consul_server_ips}",
       "source": "hashicorp/consul-ecs/aws//modules/mesh-task",
+      "tags": {
+        "team": "dev"
+      },
       "tls": true,
       "version": "0.4.2"
     }
@@ -147,11 +150,9 @@
     }
   },
   "terraform": {
-    "cloud": {
-      "hostname": "app.terraform.io",
-      "organization": "jcolemorrison",
-      "workspaces": {
-        "name": "cdktf-ecs-consul"
+    "backend": {
+      "local": {
+        "path": "/Users/cole/Projects/cdktf-ecs-consul/terraform.cdktf-ecs-consul.tfstate"
       }
     },
     "required_providers": {
