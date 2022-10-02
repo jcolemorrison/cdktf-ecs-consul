@@ -3,7 +3,14 @@ import { CloudwatchLogGroup } from "@cdktf/provider-aws/lib/cloudwatch"
 
 export class Logs extends Construct {
   public group: CloudwatchLogGroup
-  public configuration: { logDriver: string; options: { "awslogs-group": string; "awslogs-region": string; "awslogs-stream-prefix": string } }
+  public configuration: {
+    logDriver: string; 
+    options: { 
+      "awslogs-group": string;
+      "awslogs-region": string;
+      "awslogs-stream-prefix": string
+    }
+  }
 
   constructor(
     scope: Construct,
