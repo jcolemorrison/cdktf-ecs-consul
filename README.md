@@ -11,7 +11,7 @@ This repository demonstrates setting up an Amazon ECS microservices architecture
 
 ## The Architecture
 
-![Terraform with Amazon ECS and Consul](images/Terraform%20with%20Amazon%20ECS%20and%20Consul.png)
+![Terraform with Amazon ECS and Consul](images/terraform-ecs-consul.png)
 
 All services use [Fake Service](https://github.com/nicholasjackson/fake-service) as for demonstration purposes.  You can swap them out with your own containerized services.  You will need to change around port configurations and security groups to afford your applications' needs.
 
