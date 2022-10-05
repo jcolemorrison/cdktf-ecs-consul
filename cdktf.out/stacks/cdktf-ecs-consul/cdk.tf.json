@@ -89,6 +89,9 @@
       ],
       "retry_join": "${data.terraform_remote_state.tfc_outputs.outputs.consul_server_ips}",
       "source": "hashicorp/consul-ecs/aws//modules/mesh-task",
+      "tags": {
+        "team": "dev"
+      },
       "tls": true,
       "version": "0.4.2"
     }
