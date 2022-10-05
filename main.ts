@@ -1,6 +1,6 @@
 import { Construct } from "constructs"
 import { App, TerraformStack, DataTerraformRemoteState } from "cdktf"
-import { AwsProvider } from "@cdktf/provider-aws"
+import { AwsProvider } from "@cdktf/provider-aws/lib/provider"
 import { ConsulEcsMeshTask } from "./.gen/modules/consul-ecs-mesh-task"
 import { Logs } from "./logs"
 import { ImagesService } from "./ecs-services"
