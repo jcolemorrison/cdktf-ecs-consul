@@ -3,7 +3,7 @@
     "metadata": {
       "backend": "local",
       "stackName": "cdktf-ecs-consul",
-      "version": "0.12.2"
+      "version": "0.13.0"
     },
     "outputs": {
     }
@@ -158,7 +158,7 @@
     "required_providers": {
       "aws": {
         "source": "aws",
-        "version": "4.32.0"
+        "version": "4.33.0"
       }
     }
   }

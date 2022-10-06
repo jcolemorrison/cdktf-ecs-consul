@@ -1,5 +1,5 @@
 import { Construct } from "constructs"
-import { CloudwatchLogGroup } from "@cdktf/provider-aws/lib/cloudwatch"
+import { CloudwatchLogGroup } from "@cdktf/provider-aws/lib/cloudwatch-log-group"
 
 export class Logs extends Construct {
   public group: CloudwatchLogGroup

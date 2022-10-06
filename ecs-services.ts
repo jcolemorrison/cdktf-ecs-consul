@@ -1,8 +1,8 @@
-import { ecs } from "@cdktf/provider-aws"
+import { EcsService } from "@cdktf/provider-aws/lib/ecs-service"
 import { Construct } from "constructs"
 
 export class ImagesService extends Construct {
-  public service: ecs.EcsService
+  public service: EcsService
 
   constructor(
     scope: Construct,
@@ -15,7 +15,7 @@ export class ImagesService extends Construct {
   ) {
     super(scope, name)
 
-    this.service = new ecs.EcsService(this, name, {
+    this.service = new EcsService(this, name, {
       name: serviceName,
       cluster: clusterArn,
       taskDefinition: taskDefinitionArn,
